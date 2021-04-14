@@ -1,4 +1,4 @@
-package Kotash;
+package Kotash.Logic;
 
 import elevengame.DataStore;
 import java.util.ArrayList;
