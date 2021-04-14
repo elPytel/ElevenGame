@@ -11,9 +11,10 @@ import java.util.List;
  */
 public class Game implements GameInterface{
     
-    private final String name = "Eleven game"; 
+    private static final String name = "Eleven game"; 
+    private static final int eleven = 11;
     private Deck deck;
-    private Card[] table = new Card[9];
+    private Card[] table = new Card[nCards()];
 
     public Game() {
         this.deck = new Deck();
@@ -24,7 +25,7 @@ public class Game implements GameInterface{
     
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override
@@ -38,16 +39,22 @@ public class Game implements GameInterface{
     }
 
     private boolean sumElevenExist() {
-        //TODO
-        throw new UnsupportedOperationException("Not supported yet.");
+        for (int i = 0; i < nCards(); i++) {
+            for (int j = i; j < nCards(); i++) {
+                if (table[i].getPoint() + table[j].getPoint() == eleven) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
-    private boolean JKQExist() {
+    private boolean JKQExist(Card[] array) {
         String[] sTriple = DataStore.getTriple();
         boolean[] bTriple = {false, false, false};
         List<String> triple = Arrays.asList(sTriple);
         int index;
-        for (Card card : table) {
+        for (Card card : array) {
             index = triple.indexOf(card.getValue());
             // karta je z triplu
             if (index != -1) {
@@ -60,17 +67,53 @@ public class Game implements GameInterface{
     
     @Override
     public String getCardDescriptionAt(int index) {
-        return this.table[index].toString();
+        return this.table[index] == null ? null : this.table[index].toString();
     }
 
     @Override
     public boolean anotherPlayIsPossible() {
-        return JKQExist() || sumElevenExist();
+        return JKQExist(table) || sumElevenExist();
     }
+    
+    public boolean isEleven(Card c1, Card c2) {
+        return (c1.getPoint() + c2.getPoint()) == eleven;
+    }
+    
 
     @Override
     public boolean playAndReplace(List<Integer> iSelectedCards) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // valid
+        for (int i : iSelectedCards) {
+            if (i < 0 || i > nCards()) {
+                throw new IllegalArgumentException("Index: " + i);
+            }
+        }
+        
+        // test
+        switch (iSelectedCards.size()) {
+            case 2:
+                if (!isEleven(table[iSelectedCards.get(0)], table[iSelectedCards.get(1)])) {
+                    return false;
+                }
+                break;
+            case 3:
+                Card[] selectedCards = new Card[3];
+                selectedCards[0] = this.table[iSelectedCards.get(0)];
+                selectedCards[1] = this.table[iSelectedCards.get(1)];
+                selectedCards[2] = this.table[iSelectedCards.get(2)];
+                if (!JKQExist(selectedCards)) {
+                    return false;
+                }
+                break;
+            default:
+                return false;
+        }
+        
+        // execute
+        for (int i : iSelectedCards) {
+            table[i] = deck.getCard();
+        }
+        return true;
     }
 
     @Override
@@ -90,6 +133,5 @@ public class Game implements GameInterface{
         for (int i = 0; i < g.nCards(); i++) {
             System.out.format("Card: %s \n", g.getCardDescriptionAt(i));
         }
-        
     }
 }
