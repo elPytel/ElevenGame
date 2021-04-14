@@ -1,5 +1,7 @@
-package elevengame ;
+package Kotash ;
 
+import elevengame.DataStore;
+import elevengame.GameInterface;
 import java.util.List;
 
 /**
@@ -14,15 +16,17 @@ public class Elevengame implements GameInterface{
     public static void main(String[] args) {
         // TODO code application logic here
     }
+    
+    private final String name = "Eleven game"; 
 
     @Override
     public String getName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.name;
     }
 
     @Override
     public int nCards() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return DataStore.getNCards(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
