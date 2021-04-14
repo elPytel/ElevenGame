@@ -83,7 +83,11 @@ public class Deck {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Deck d = new Deck();
+        while (d.getSize() != 0) {
+            System.out.format("Card: %s \n", d.getCard());
+        }
+        
     }
     
 }

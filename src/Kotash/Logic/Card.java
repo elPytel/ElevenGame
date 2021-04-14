@@ -38,7 +38,14 @@ public class Card {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Card c = new Card("hearts", "ace", 1);
+        
+        System.out.format("Symbol: %s \n", c.getSymbol());
+        System.out.format("Value: %s \n", c.getValue());
+        System.out.format("Point: %d \n", c.getPoint());
+        
+        System.out.format("Card: %s \n", c);
+        
     }
     
 }

@@ -82,6 +82,14 @@ public class Game implements GameInterface{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Game g = new Game();
+        System.out.format("Name: %s \n", g.getName());
+        System.out.format("Desk size: %d \n", g.nCards());
+        
+        // desk
+        for (int i = 0; i < g.nCards(); i++) {
+            System.out.format("Card: %s \n", g.getCardDescriptionAt(i));
+        }
+        
     }
 }
