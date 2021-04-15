@@ -1,6 +1,5 @@
-package Kotash;
+package Kotash.Logic;
 
-import Kotash.Card;
 import elevengame.DataStore;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,8 +20,8 @@ public class Deck {
     public Deck() {
         
         Card[] cards = Deck.generateDeck();
-        Integer[] randomIndexs = Deck.genrerateRandomIndexs();
         // Colections Shuffle
+        Integer[] randomIndexs = Deck.genrerateRandomIndexs();
         shuffleCards(cards, randomIndexs);
     }
     
@@ -71,15 +70,24 @@ public class Deck {
         this.deck = Arrays.asList(shuffledCard);
     }
     
+    public int getSize() {
+        return this.deck.size();
+    }
+    
     public Card getCard() {
-        return (Card) this.deck.remove(this.deck.size()-1);
+        int last = this.deck.size()-1;
+        return (Card) this.deck.remove(last);
     }
     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Deck d = new Deck();
+        while (d.getSize() != 0) {
+            System.out.format("Card: %s \n", d.getCard());
+        }
+        
     }
     
 }
