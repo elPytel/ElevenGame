@@ -9,7 +9,6 @@ import java.util.*;
  * @author pytel
  */
 public class Deck {
-    private final boolean DEBUG = true;
     
     private static final int SIZE = 52;
     private List<Card> deck;

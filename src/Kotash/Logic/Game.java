@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class Game implements GameInterface{
     
+    private final boolean DEBUG = false;
+    
     private static final String name = "Eleven game"; 
     private static final int eleven = 11;
     private Deck deck;
@@ -40,7 +42,7 @@ public class Game implements GameInterface{
 
     private boolean sumElevenExist() {
         for (int i = 0; i < nCards(); i++) {
-            for (int j = i; j < nCards(); i++) {
+            for (int j = i; j < nCards(); j++) {
                 if (table[i].getPoint() + table[j].getPoint() == eleven) {
                     return true;
                 }
@@ -61,8 +63,15 @@ public class Game implements GameInterface{
                 bTriple[index] = true;
             }
         }
+        if (DEBUG) {
+            System.out.format("Founded kards: ");
+            for (boolean existence : bTriple) {
+                System.out.format("%b ", existence);
+            }
+            System.out.println();
+        }
         // nalezl jsem vsechny karty?
-        return Arrays.asList(bTriple).contains(false);
+        return !Arrays.asList(bTriple).contains(false);
     }
     
     @Override
@@ -132,5 +141,8 @@ public class Game implements GameInterface{
         for (int i = 0; i < g.nCards(); i++) {
             System.out.format("Card %d: %s \n", i, g.getCardDescriptionAt(i));
         }
+        
+        System.out.format("JQK exit: %b \n", g.JKQExist(g.table));
+        System.out.format("Eleven exit: %b \n", g.sumElevenExist());
     }
 }
