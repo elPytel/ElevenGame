@@ -1,31 +1,27 @@
 package Kotash.Logic;
 
 import elevengame.DataStore;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+
+import java.util.*;
 
 /**
  *
  * @author pytel
  */
 public class Deck {
-
     private final boolean DEBUG = true;
     
     private static final int SIZE = 52;
-    private List deck;
+    private List<Card> deck;
 
     public Deck() {
-        
-        Card[] cards = Deck.generateDeck();
+        this.deck = Deck.generateDeck();
         // Colections Shuffle
-        Integer[] randomIndexs = Deck.genrerateRandomIndexs();
-        shuffleCards(cards, randomIndexs);
+        //Integer[] randomIndexs = Deck.genrerateRandomIndexs();
+        //shuffleCards(cards, randomIndexs);
     }
     
-    private static Card[] generateDeck () {
+    private static List<Card> generateDeck () {
         Card card;
         List<Card> cards = new ArrayList();
         int[] points = DataStore.loadNPoints();
@@ -36,9 +32,11 @@ public class Deck {
                 cards.add(card);
             }
         }
-        return (Card[]) cards.toArray();
+        Collections.shuffle(cards);
+        return cards;
     }
-    
+
+    //neni potreba uz
     private static Integer[] genrerateRandomIndexs () {
         
         // vytvori pole indexu 1:SIZE
@@ -58,7 +56,8 @@ public class Deck {
         }
         return (Integer[]) shuffledIndexs.toArray();
     }
-    
+
+    //neni potreba uz
     private void shuffleCards (Card[] cards, Integer[] randomIndexs) {
         Card[] shuffledCard = new Card[Deck.SIZE];
         int index;
@@ -89,5 +88,4 @@ public class Deck {
         }
         
     }
-    
 }

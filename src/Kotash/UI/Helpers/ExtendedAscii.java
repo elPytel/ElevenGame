@@ -1,4 +1,4 @@
-package UI;
+package Kotash.UI.Helpers;
 
 public class ExtendedAscii {
     public static final char[] EXTENDED = { 0x00C7, 0x00FC, 0x00E9, 0x00E2,

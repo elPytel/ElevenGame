@@ -1,4 +1,9 @@
-package UI;
+package Kotash.UI;
+
+import Kotash.UI.Helpers.Colors;
+import Kotash.UI.Helpers.ExtendedAscii;
+
+import java.util.Locale;
 
 public class Card {
     String label;
@@ -7,7 +12,7 @@ public class Card {
 
     public Card(String label, String value) {
         this.label = convertLabels(label);
-        this.value = value;
+        this.value = convertValues(value);
         this.red = label.equals("diamonds") || label.equals("hearts");
     }
 
@@ -18,6 +23,13 @@ public class Card {
             case "spades": return "\u2660";
             default: return "\u2665";
         }
+    }
+
+    private String convertValues(String value) {
+        if (value.length() > 2) {
+            return Character.toString(value.toUpperCase().toCharArray()[0]);
+        }
+        return value;
     }
 
     @Override

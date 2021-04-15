@@ -4,6 +4,7 @@ import elevengame.DataStore;
 import elevengame.GameInterface;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  *
@@ -51,7 +52,7 @@ public class Game implements GameInterface{
     
     private boolean JKQExist(Card[] array) {
         String[] sTriple = DataStore.getTriple();
-        boolean[] bTriple = {false, false, false};
+        Boolean[] bTriple = {false, false, false};
         List<String> triple = Arrays.asList(sTriple);
         int index;
         for (Card card : array) {
@@ -62,7 +63,7 @@ public class Game implements GameInterface{
             }
         }
         // nalezl jsem vsechny karty?
-        return Arrays.asList(bTriple).indexOf(false) == -1;
+        return Arrays.asList(bTriple).contains(false);
     }
     
     @Override
@@ -78,7 +79,7 @@ public class Game implements GameInterface{
     public boolean isEleven(Card c1, Card c2) {
         return (c1.getPoint() + c2.getPoint()) == eleven;
     }
-    
+
 
     @Override
     public boolean playAndReplace(List<Integer> iSelectedCards) {

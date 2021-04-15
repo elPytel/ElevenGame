@@ -3,7 +3,7 @@ package elevengame;
 import java.util.List;
 
 /**
- * Interface between the card game and the UI
+ * Interface between the card game and the Kotash.UI
  * Defines requested functionality from the game
  * @author JV
  */
