@@ -4,7 +4,6 @@ import elevengame.DataStore;
 import elevengame.GameInterface;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
  *
@@ -68,7 +67,7 @@ public class Game implements GameInterface{
     
     @Override
     public String getCardDescriptionAt(int index) {
-        return this.table[index] == null ? null : this.table[index].toString();
+        return this.table[index] == null ? "" : this.table[index].toString();
     }
 
     @Override
@@ -79,7 +78,6 @@ public class Game implements GameInterface{
     public boolean isEleven(Card c1, Card c2) {
         return (c1.getPoint() + c2.getPoint()) == eleven;
     }
-
 
     @Override
     public boolean playAndReplace(List<Integer> iSelectedCards) {
@@ -92,12 +90,12 @@ public class Game implements GameInterface{
         
         // test
         switch (iSelectedCards.size()) {
-            case 2:
+            case 2:     // hraje na Eleven
                 if (!isEleven(table[iSelectedCards.get(0)], table[iSelectedCards.get(1)])) {
                     return false;
                 }
                 break;
-            case 3:
+            case 3:     // hraje na JQK
                 Card[] selectedCards = new Card[3];
                 selectedCards[0] = this.table[iSelectedCards.get(0)];
                 selectedCards[1] = this.table[iSelectedCards.get(1)];
@@ -106,7 +104,7 @@ public class Game implements GameInterface{
                     return false;
                 }
                 break;
-            default:
+            default:    // neznamy tah
                 return false;
         }
         
@@ -132,7 +130,7 @@ public class Game implements GameInterface{
         
         // desk
         for (int i = 0; i < g.nCards(); i++) {
-            System.out.format("Card: %s \n", g.getCardDescriptionAt(i));
+            System.out.format("Card %d: %s \n", i, g.getCardDescriptionAt(i));
         }
     }
 }
