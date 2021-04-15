@@ -12,25 +12,22 @@ public class Card {
     }
 
     private String convertLabels(String labelName) {
-        return switch (labelName) {
-            case "hearts" -> "\u2665";
-            case "diamonds" -> "\u2666";
-            case "clubs" -> "\u2663";
-            case "spades" -> "\u2660";
-            default -> "\u2665";
-        };
+        switch (labelName) {
+            case "diamonds": return "\u2666";
+            case "clubs": return "\u2663";
+            case "spades": return "\u2660";
+            default: return "\u2665";
+        }
     }
 
     @Override
     public String toString() {
         return (this.red ? Colors.RED : Colors.BLUE) +
                 String.format(
-                        """
-                                %c%c%c%c%c%c%c
-                                %c%s%s%s%s%s%c
-                                %c%s%s%s%s%s%c
-                                %c%c%c%c%c%c%c
-                                """,
+                                "%c%c%c%c%c%c%c\n" +
+                                "%c%s%s%s%s%s%c\n" +
+                                "%c%s%s%s%s%s%c\n" +
+                                "%c%c%c%c%c%c%c\n",
                         ExtendedAscii.getAscii(200),
                         ExtendedAscii.getAscii(204),
                         ExtendedAscii.getAscii(204),
