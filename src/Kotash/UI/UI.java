@@ -2,76 +2,98 @@ package Kotash.UI;
 
 import Kotash.Logic.Game;
 import Kotash.UI.Helpers.Colors;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
+import java.util.*;
 
 public class UI {
-    
     public static Scanner sc = new Scanner(System.in);
-    
+
     public static void runGame() {
         startGame();
 
         Game game = new Game();
-        int size = game.nCards();
-        for (int i = 0; i < size; i++) {
-            String[] cardInfo = game.getCardDescriptionAt(i).split("-");
-            System.out.println(new Card(cardInfo[0], cardInfo[1]));
-        }
-        getNextMove();
+
+        do {
+            printTable(generateTable(getCards(game)));
+            game.playAndReplace(Arrays.asList(takeChoice()));
+        } while (!game.isWon() && game.anotherPlayIsPossible());
+
+        if (game.isWon()) winner();
+        else loser();
+
         endGame();
     }
 
     private static void startGame() {
-        System.out.println(Colors.BG_RED + Colors.BLACK + " Welcome to ELEVEN GAME " + Colors.RESET_COLOR);
+        System.out.println(Colors.BRIGHT_BG_GREEN + Colors.BLACK + " Welcome to ELEVEN GAME " + Colors.RESET_COLOR);
         System.out.println();
     }
-    
-    /**
-     * Read input to string.
-     * @return 
-     */
-    private static String readInput() {
-        return sc.nextLine();
-    }
-    
-    /**
-     * Parse string input into integers.
-     * @return 
-     */
-    private static List<Integer> parseInput(String inputString) {
-        String[] numbersInString = inputString.split(" ");
-        List<Integer> numbers = new ArrayList();
-        for (String numberString : numbersInString) {
-            numbers.add(Integer.parseInt(numberString));
+
+    private static Card[] getCards(Game game) {
+        int size = game.nCards();
+        Card[] cards = new Card[size];
+
+        for (int i = 0; i < size; i++) {
+            String[] cardInfo = game.getCardDescriptionAt(i).split("-");
+            cards[i] = new Card(cardInfo[0], cardInfo[1]);
         }
-        return numbers;
+
+        return cards;
     }
-    
-    public static boolean validMoveLen (int len) {
-        return len == 2 || len == 3;
-    }
-    
-    private static List<Integer> getNextMove () {
-        int inputLen = 0;
-        List<Integer> move = new ArrayList();
-        String inputString;
-        while (!validMoveLen(inputLen)) {
-            System.out.format("Type your move: ");
-            inputString = readInput();
-            move = parseInput(inputString);
-            inputLen = move.size();
-            if (!validMoveLen(inputLen)) {
-                System.out.format("Invalid input, try once more... \n");
+
+    private static String generateTable(Card[] cards) {
+        StringBuilder table = new StringBuilder();
+
+        for (int i = 0; i < 4; i++) { // 4 - height of a card
+            for (Card card : cards) {
+                table.append(card.toString().split("\n")[i]).append("  ");
             }
+            table.append("\n");
         }
-        return move;
+
+        return table.toString();
+    }
+
+    private static void printTable(String table) {
+        System.out.println("Choose cards:");
+        System.out.println(table);
+        System.out.println(Colors.RESET_COLOR);
+    }
+
+    private static Integer[] takeChoice() {
+        Integer[] answer;
+        String[] input = sc.nextLine().split(" ");
+
+        if (input.length < 2) throw new IllegalArgumentException("At least 2 cards");
+
+        if (input.length == 2) {
+            answer = new Integer[2];
+        } else {
+            answer = new Integer[3];
+        }
+
+        for (int i = 0; i < answer.length; i++) {
+            answer[i] = Integer.parseInt(input[i]) - 1;
+        }
+
+        return answer;
+    }
+
+    private static void winner() {
+        System.out.println();
+        System.out.println(Colors.BRIGHT_BG_YELLOW + Colors.BLACK + " You are winner!!! " + Colors.RESET_COLOR);
+        System.out.println();
+    }
+
+    private static void loser() {
+        System.out.println();
+        System.out.println(Colors.BRIGHT_BG_RED + Colors.BLACK + " You are loser!!! " + Colors.RESET_COLOR);
+        System.out.println();
     }
 
     private static void endGame() {
         System.out.println();
-        System.out.println();
+        System.out.println(Colors.BRIGHT_BG_GREEN + Colors.BLACK + " We are waiting for you again! " + Colors.RESET_COLOR);
         System.out.println();
     }
 }

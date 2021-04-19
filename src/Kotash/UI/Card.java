@@ -18,10 +18,14 @@ public class Card {
 
     private String convertLabels(String labelName) {
         switch (labelName) {
-            case "diamonds": return "\u2666";
-            case "clubs": return "\u2663";
-            case "spades": return "\u2660";
-            default: return "\u2665";
+            case "diamonds":
+                return "\u2666";
+            case "clubs":
+                return "\u2663";
+            case "spades":
+                return "\u2660";
+            default:
+                return "\u2665";
         }
     }
 
@@ -34,43 +38,51 @@ public class Card {
 
     @Override
     public String toString() {
-        return (this.red ? Colors.RED : Colors.BLUE) +
-                String.format(
-                                "%c%c%c%c%c%c%c\n" +
-                                "%c%s%s%s%s%s%c\n" +
-                                "%c%s%s%s%s%s%c\n" +
-                                "%c%c%c%c%c%c%c\n",
-                        ExtendedAscii.getAscii(200),
-                        ExtendedAscii.getAscii(204),
-                        ExtendedAscii.getAscii(204),
-                        ExtendedAscii.getAscii(204),
-                        ExtendedAscii.getAscii(204),
-                        ExtendedAscii.getAscii(204),
-                        ExtendedAscii.getAscii(186),
+        String color = getColor(this.red);
+        return String.format(
+                        color + "%c%c%c%c%c%c%c\n" + reset() +
+                        color + "%c%s%s%s%s%s%c\n" + reset() +
+                        color + "%c%s%s%s%s%s%c\n" + reset() +
+                        color + "%c%c%c%c%c%c%c\n" + reset(),
+                ExtendedAscii.getAscii(200),
+                ExtendedAscii.getAscii(204),
+                ExtendedAscii.getAscii(204),
+                ExtendedAscii.getAscii(204),
+                ExtendedAscii.getAscii(204),
+                ExtendedAscii.getAscii(204),
+                ExtendedAscii.getAscii(186),
 
-                        ExtendedAscii.getAscii(185),
-                        " ",
-                        " ",
-                        value,
-                        value.length() > 1 ? "" : " ",
-                        " ",
-                        ExtendedAscii.getAscii(185),
+                ExtendedAscii.getAscii(185),
+                " ",
+                " ",
+                value,
+                value.length() > 1 ? "" : " ",
+                " ",
+                ExtendedAscii.getAscii(185),
 
-                        ExtendedAscii.getAscii(185),
-                        " ",
-                        " ",
-                        label,
-                        " ",
-                        " ",
-                        ExtendedAscii.getAscii(185),
+                ExtendedAscii.getAscii(185),
+                " ",
+                " ",
+                label,
+                " ",
+                " ",
+                ExtendedAscii.getAscii(185),
 
-                        ExtendedAscii.getAscii(199),
-                        ExtendedAscii.getAscii(204),
-                        ExtendedAscii.getAscii(204),
-                        ExtendedAscii.getAscii(204),
-                        ExtendedAscii.getAscii(204),
-                        ExtendedAscii.getAscii(204),
-                        ExtendedAscii.getAscii(187)
-                ) + Colors.RESET_COLOR;
+                ExtendedAscii.getAscii(199),
+                ExtendedAscii.getAscii(204),
+                ExtendedAscii.getAscii(204),
+                ExtendedAscii.getAscii(204),
+                ExtendedAscii.getAscii(204),
+                ExtendedAscii.getAscii(204),
+                ExtendedAscii.getAscii(187)
+        );
+    }
+
+    private String getColor(boolean red) {
+        return red ? Colors.RED : Colors.BLUE;
+    }
+
+    private String reset() {
+        return Colors.RESET_COLOR;
     }
 }
