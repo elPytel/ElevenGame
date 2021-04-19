@@ -64,7 +64,7 @@ public class Game implements GameInterface{
             }
         }
         if (DEBUG) {
-            System.out.format("Founded kards: ");
+            System.out.format("Founded cards: ");
             for (boolean existence : bTriple) {
                 System.out.format("%b ", existence);
             }
@@ -127,5 +127,28 @@ public class Game implements GameInterface{
     @Override
     public boolean isWon() {
         return this.deck.getSize() == 0;
+    }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Game g = new Game();
+        System.out.format("Name: %s \n", g.getName());
+        System.out.format("Desk size: %d \n", g.nCards());
+
+        // desk
+        for (int i = 0; i < g.nCards(); i++) {
+            System.out.format("Card %d: %s \n", i, g.getCardDescriptionAt(i));
+        }
+
+        System.out.format("JQK exit: %b \n", g.JKQExist(g.table));
+        System.out.format("Eleven exit: %b \n", g.sumElevenExist());
+        System.out.println();
+        
+        // deck
+        while (!g.isWon()) {
+            System.out.format("Card: %s \n", g.deck.getCard());
+        }
     }
 }

@@ -36,6 +36,7 @@ public class Deck {
     }
 
     //neni potreba uz
+    /*
     private static Integer[] genrerateRandomIndexs () {
         
         // vytvori pole indexu 1:SIZE
@@ -67,6 +68,7 @@ public class Deck {
         
         this.deck = Arrays.asList(shuffledCard);
     }
+    */
     
     public int getSize() {
         return this.deck.size();
@@ -82,9 +84,12 @@ public class Deck {
      */
     public static void main(String[] args) {
         Deck d = new Deck();
+        int number = 0;
         while (d.getSize() != 0) {
             System.out.format("Card: %s \n", d.getCard());
+            number++;
         }
-        
+        System.out.println();
+        System.out.format("Number of cards: %d\n", number);
     }
 }

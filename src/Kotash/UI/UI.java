@@ -43,13 +43,22 @@ public class UI {
 
     private static String generateTable(Card[] cards) {
         StringBuilder table = new StringBuilder();
+        String spacer = "  ";
 
+        // formatovani karet
         for (int i = 0; i < 4; i++) { // 4 - height of a card
             for (Card card : cards) {
-                table.append(card.toString().split("\n")[i]).append("  ");
+                table.append(card.toString().split("\n")[i]).append(spacer);
             }
             table.append("\n");
         }
+        
+        // tisk indexu karet
+        for (int i = 0; i < cards.length; i++) {
+            table.append(String.format("   %d   ", i+1));
+            table.append(spacer);
+        }
+        table.append("\n");
 
         return table.toString();
     }
