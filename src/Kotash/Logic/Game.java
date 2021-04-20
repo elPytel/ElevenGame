@@ -19,10 +19,12 @@ public class Game implements GameInterface{
     private Card[] table = new Card[nCards()];
 
     public Game() {
-        this.deck = new Deck();
-        for (int i = 0; i < table.length; i++) {
-            this.table[i] = this.deck.getCard();
-        }
+        do {
+            this.deck = new Deck();
+            for (int i = 0; i < table.length; i++) {
+                this.table[i] = this.deck.getCard();
+            }
+        } while (!this.anotherPlayIsPossible());
     }
     
     @Override
