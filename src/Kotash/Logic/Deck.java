@@ -22,7 +22,7 @@ public class Deck {
     
     private static List<Card> generateDeck () {
         Card card;
-        List<Card> cards = new ArrayList();
+        List<Card> cards = new ArrayList<>();
         int[] points = DataStore.loadNPoints();
         String[] values = DataStore.loadValues();
         for (String symbol : DataStore.loadSymbols()) {
@@ -76,7 +76,7 @@ public class Deck {
     
     public Card getCard() {
         int last = this.deck.size()-1;
-        return (Card) this.deck.remove(last);
+        return this.deck.remove(last);
     }
     
     /**

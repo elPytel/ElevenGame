@@ -13,10 +13,10 @@ public class UI {
 
         Game game = new Game();
 
-        do {
+        while (!game.isWon() && game.anotherPlayIsPossible()) {
             printTable(generateTable(getCards(game)));
             game.playAndReplace(Arrays.asList(takeChoice()));
-        } while (!game.isWon() && game.anotherPlayIsPossible());
+        }
 
         if (game.isWon()) winner();
         else loser();

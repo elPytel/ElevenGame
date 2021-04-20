@@ -1,32 +1,30 @@
-package Kotash.Logic ;
+package Kotash.Logic;
 
 import elevengame.DataStore;
 import elevengame.GameInterface;
+
 import java.util.Arrays;
 import java.util.List;
 
 /**
- *
  * @author pytel
  */
-public class Game implements GameInterface{
-    
+public class Game implements GameInterface {
+
     private final boolean DEBUG = false;
-    
-    private static final String name = "Eleven game"; 
+
+    private static final String name = "Eleven game";
     private static final int eleven = 11;
     private Deck deck;
     private Card[] table = new Card[nCards()];
 
     public Game() {
-        do {
-            this.deck = new Deck();
-            for (int i = 0; i < table.length; i++) {
-                this.table[i] = this.deck.getCard();
-            }
-        } while (!this.anotherPlayIsPossible());
+        this.deck = new Deck();
+        for (int i = 0; i < table.length; i++) {
+            this.table[i] = this.deck.getCard();
+        }
     }
-    
+
     @Override
     public String getName() {
         return name;
@@ -52,7 +50,7 @@ public class Game implements GameInterface{
         }
         return false;
     }
-    
+
     private boolean JKQExist(Card[] array) {
         String[] sTriple = DataStore.getTriple();
         Boolean[] bTriple = {false, false, false};
@@ -75,7 +73,7 @@ public class Game implements GameInterface{
         // nalezl jsem vsechny karty?
         return !Arrays.asList(bTriple).contains(false);
     }
-    
+
     @Override
     public String getCardDescriptionAt(int index) {
         return this.table[index] == null ? "" : this.table[index].toString();
@@ -85,7 +83,7 @@ public class Game implements GameInterface{
     public boolean anotherPlayIsPossible() {
         return JKQExist(table) || sumElevenExist();
     }
-    
+
     public boolean isEleven(Card c1, Card c2) {
         return (c1.getPoint() + c2.getPoint()) == eleven;
     }
@@ -98,7 +96,7 @@ public class Game implements GameInterface{
                 throw new IllegalArgumentException("Index: " + i);
             }
         }
-        
+
         // test
         switch (iSelectedCards.size()) {
             case 2:     // hraje na Eleven
@@ -118,7 +116,7 @@ public class Game implements GameInterface{
             default:    // neznamy tah
                 return false;
         }
-        
+
         // execute
         for (int i : iSelectedCards) {
             table[i] = deck.getCard();
@@ -130,7 +128,7 @@ public class Game implements GameInterface{
     public boolean isWon() {
         return this.deck.getSize() == 0;
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -147,7 +145,7 @@ public class Game implements GameInterface{
         System.out.format("JQK exit: %b \n", g.JKQExist(g.table));
         System.out.format("Eleven exit: %b \n", g.sumElevenExist());
         System.out.println();
-        
+
         // deck
         while (!g.isWon()) {
             System.out.format("Card: %s \n", g.deck.getCard());
