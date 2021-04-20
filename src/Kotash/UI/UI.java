@@ -55,7 +55,8 @@ public class UI {
         
         // tisk indexu karet
         for (int i = 0; i < cards.length; i++) {
-            table.append(String.format("   %d   ", i+1));
+            table.append(Colors.RESET_COLOR);
+            table.append(String.format(" %s%d%s ", spacer, i+1, spacer));
             table.append(spacer);
         }
         table.append("\n");

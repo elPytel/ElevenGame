@@ -3,8 +3,6 @@ package Kotash.UI;
 import Kotash.UI.Helpers.Colors;
 import Kotash.UI.Helpers.ExtendedAscii;
 
-import java.util.Locale;
-
 public class Card {
     String label;
     String value;
@@ -40,10 +38,10 @@ public class Card {
     public String toString() {
         String color = getColor(this.red);
         return String.format(
-                        color + "%c%c%c%c%c%c%c\n" + reset() +
-                        color + "%c%s%s%s%s%s%c\n" + reset() +
-                        color + "%c%s%s%s%s%s%c\n" + reset() +
-                        color + "%c%c%c%c%c%c%c\n" + reset(),
+                        color + "%c%c%c%c%c%c%c\n" + resetColor() +
+                        color + "%c%s%s%s%s%s%c\n" + resetColor() +
+                        color + "%c%s%s%s%s%s%c\n" + resetColor() +
+                        color + "%c%c%c%c%c%c%c\n" + resetColor(),
                 ExtendedAscii.getAscii(200),
                 ExtendedAscii.getAscii(204),
                 ExtendedAscii.getAscii(204),
@@ -82,7 +80,7 @@ public class Card {
         return red ? Colors.RED : Colors.BLUE;
     }
 
-    private String reset() {
+    private String resetColor() {
         return Colors.RESET_COLOR;
     }
 }
