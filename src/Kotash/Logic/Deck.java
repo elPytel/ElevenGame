@@ -75,6 +75,9 @@ public class Deck {
     }
     
     public Card getCard() {
+        if (this.deck.isEmpty()) {
+            return null;
+        }
         int last = this.deck.size()-1;
         return this.deck.remove(last);
     }
@@ -85,7 +88,7 @@ public class Deck {
     public static void main(String[] args) {
         Deck d = new Deck();
         int number = 0;
-        while (d.getSize() != 0) {
+        while (!d.deck.isEmpty()) {
             System.out.format("Card: %s \n", d.getCard());
             number++;
         }

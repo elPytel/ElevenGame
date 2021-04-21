@@ -124,9 +124,18 @@ public class Game implements GameInterface {
         return true;
     }
 
+    public boolean tableIsEmpty() {
+        for (Card card : table) {
+            if (card != null) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     @Override
     public boolean isWon() {
-        return this.deck.getSize() == 0;
+        return this.deck.getSize() == 0 && tableIsEmpty();
     }
 
     /**
@@ -147,8 +156,19 @@ public class Game implements GameInterface {
         System.out.println();
 
         // deck
-        while (!g.isWon()) {
-            System.out.format("Card: %s \n", g.deck.getCard());
+        while ( g.deck.getSize() != 0 ) {
+            System.out.format("Deck size: %d    Card: %s \n", g.deck.getSize(), g.deck.getCard());
         }
+        System.out.println();
+        
+        // empty desk
+        while ( ! g.tableIsEmpty() ) {
+            for (int i = 0; i < g.nCards(); i++) {
+                g.table[i] = g.deck.getCard();
+            }
+        }
+        
+        // empty deck, empty table
+        System.out.format("%s! \n", g.isWon() ? "Vyhra" : "Prohra");
     }
 }
