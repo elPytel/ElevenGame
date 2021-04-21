@@ -3,7 +3,7 @@ package elevengame;
 import java.util.List;
 
 /**
- * Interface between the card game and the Kotash.UI
+ * Interface between the card game and the UI
  * Defines requested functionality from the game
  * @author JV
  */
@@ -34,7 +34,7 @@ public interface GameInterface {
      * @return symbol and value of the card as one String e.g. "srdce-7" or 
      * or empty String if there is no card at that index 
      */
-    public String getCardDescriptionAt(int index);
+    public String getCardDescriptionAt(int index); 
     
     /**
      * Is another play possible.
