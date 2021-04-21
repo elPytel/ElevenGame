@@ -2,6 +2,7 @@ package Kotash.UI;
 
 import Kotash.Logic.Game;
 import Kotash.UI.Helpers.Colors;
+import elevengame.GameInterface;
 
 import java.util.*;
 
@@ -11,7 +12,7 @@ public class UI {
     public static void runGame() {
         startGame();
 
-        Game game = new Game();
+        GameInterface game = new Game();
 
         while (!game.isWon() && game.anotherPlayIsPossible()) {
             printTable(generateTable(getCards(game)));
@@ -29,7 +30,7 @@ public class UI {
         System.out.println();
     }
 
-    private static Card[] getCards(Game game) {
+    private static Card[] getCards(GameInterface game) {
         int size = game.nCards();
         Card[] cards = new Card[size];
 
