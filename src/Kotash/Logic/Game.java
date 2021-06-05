@@ -43,6 +43,7 @@ public class Game implements GameInterface {
     private boolean sumElevenExist() {
         for (int i = 0; i < nCards(); i++) {
             for (int j = i; j < nCards(); j++) {
+                if (table[i] == null || table[j] == null) continue;
                 if (table[i].getPoint() + table[j].getPoint() == eleven) {
                     return true;
                 }
@@ -57,6 +58,8 @@ public class Game implements GameInterface {
         List<String> triple = Arrays.asList(sTriple);
         int index;
         for (Card card : array) {
+            // end game přeskoč prázdnou pozici
+            if (card == null) continue;
             index = triple.indexOf(card.getValue());
             // karta je z triplu
             if (index != -1) {
